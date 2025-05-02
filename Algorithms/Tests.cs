@@ -44,4 +44,72 @@ public static class Tests
 
     }
 
+
+    public static void BubbleSortTest()
+    {
+        int[] arr = { 64, 34, 25, 12, 22, 11, 90 ,1};
+
+        Console.WriteLine("Original array:");
+        foreach (int i in arr)
+            Console.Write(i + " ");
+        
+        Console.WriteLine();
+
+        BubbleSort(arr);
+
+        Console.WriteLine("\nSorted array:");
+        foreach (int i in arr)
+            Console.Write(i + " ");
+    }
+
+    public static void SelectionSortTest(bool asc)
+    {
+        int[] arr = { 64, 34, 25, 12, 0, -1, 22, 11, 90, 1 };
+
+        Console.WriteLine("Original array:");
+        foreach (int i in arr)
+            Console.Write(i + " ");
+
+        Console.WriteLine();
+
+        SelectionSort(arr,asc);
+
+        Console.WriteLine("\nSorted array:");
+        foreach (int i in arr)
+            Console.Write(i + " ");
+    }
+
+    public static void InsertionSortTest()
+    {
+        int[] arr = { 64, 34, 25, 12, 0, -1, 22, 11, 90, 1 };
+
+        Console.WriteLine("Original array:");
+        foreach (int i in arr)
+            Console.Write(i + " ");
+
+        Console.WriteLine();
+
+        InsertionSort(arr);
+
+        Console.WriteLine("\nSorted array:");
+        foreach (int i in arr)
+            Console.Write(i + " ");
+    }
+    
+    public static void InsertionSortDescTest()
+    {
+        int[] arr = { 64, 34, 25, 12, 0, -1, 22, 11, 90, 1 };
+
+        Console.WriteLine("Original array:");
+        foreach (int i in arr)
+            Console.Write(i + " ");
+
+        Console.WriteLine();
+
+        InsertionSortDesc(arr);
+
+        Console.WriteLine("\nSorted array:");
+        foreach (int i in arr)
+            Console.Write(i + " ");
+    }
 }

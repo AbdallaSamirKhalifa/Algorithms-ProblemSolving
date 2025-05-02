@@ -9,7 +9,14 @@ internal class Program
     {
         //LinearSearchTests();
         //BinarySearchTests(12344);
-        
+        //BubbleSortTest();
+        //Console.WriteLine("Ascending:");
+        //SelectionSortTest(true);
+        //SelectionSortTest(false);
+
+        InsertionSortTest();
+        Console.WriteLine("\n\nDescending");
+        InsertionSortDescTest();
         Console.ReadKey();
     }
 }

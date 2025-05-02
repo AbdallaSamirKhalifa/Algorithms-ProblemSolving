@@ -1,12 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
-
-
-public static class clsAlgorithms
+﻿public static class clsAlgorithms
 {
     public static int LinearSearch(int[] array, int target)
     {
@@ -46,6 +38,81 @@ public static class clsAlgorithms
         return -1;
     }
 
+    public static void BubbleSort(int[] array)
+    {
+        int length = array.Length - 1;
+        for (int i = 0; i < length ; i++)
+            for (int j = 0; j < length -i ; j++)
+                if (array[j] > array[j+1])
+                    (array[j], array[j+1]) = (array[j+1], array[j]);
+                
 
+
+        
+    }
+    
+    public static void SelectionSort(int[] array, bool asc=true)
+    {
+        int length = array.Length ;
+        int index = 0;
+
+        for (int i = 0; i < length - 1; i++)
+        {
+            index = i;
+            //one by one mover the boundary of unsorted segment
+            for (int j = i + 1; j < length; j++)
+            {
+                //find the min index in the unsorted segment
+                if (array[index] > array[j] && asc)
+                    index = j ;
+
+                //find the max index in the unsorted segment
+                if (array[index] < array[j ] && !asc)
+                    index = j ;
+
+            }
+            //swapping the (min/max) element if found with the first element in the unsorted segment
+            if(index!=i)
+            (array[i], array[index])=(array[index], array[i]);
+        }
+    }
+
+    public static void InsertionSort(int[] array)
+    {
+        int length = array.Length;
+        int key = 0;
+        int j = 0;
+        for (int i = 0; i < array.Length; i++)
+        {
+            key = array[i];
+            j = i - 1;
+
+            //move elements of arr[0..i-1], that are greater than the key
+            //to one position ahead of their current position
+            while(j >= 0 && array[j]>key)
+            {
+                array[j + 1] = array[j];
+                j--;
+            }
+            array[j + 1] = key;
+        }
+    }
+    public static void InsertionSortDesc(int[] array)
+    {
+        int length = array.Length;
+        int key = 0;
+        int j = 0;
+        for (int i = 0; i <length; i++)
+        {
+            key = array[i];
+            j = i-1;
+            while(j >= 0 && array[j] < key)
+            {
+                array[j +1] = array[j];
+                j--;
+            }
+            array[j + 1] = key;
+        }
+    }
 }
 
