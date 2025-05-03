@@ -14,9 +14,11 @@ internal class Program
         //SelectionSortTest(true);
         //SelectionSortTest(false);
 
-        InsertionSortTest();
-        Console.WriteLine("\n\nDescending");
-        InsertionSortDescTest();
+        //InsertionSortTest();
+        //Console.WriteLine("\n\nDescending");
+        //InsertionSortDescTest(); 
+
+        BinaryTreeTests();
         Console.ReadKey();
     }
 }
