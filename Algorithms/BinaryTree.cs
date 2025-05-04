@@ -19,6 +19,8 @@ public class BinaryTreeNode<T>
         Left = null;
     }
 
+
+
 }
 
 public class BinaryTree<T>

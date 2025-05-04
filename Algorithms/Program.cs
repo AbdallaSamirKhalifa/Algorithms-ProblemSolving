@@ -18,7 +18,10 @@ internal class Program
         //Console.WriteLine("\n\nDescending");
         //InsertionSortDescTest(); 
 
-        BinaryTreeTests();
+        //BinaryTreeTests();
+
+        //BinarySearchTreeInsertionTests();
+        BinarySearchTreeSerchTests();
         Console.ReadKey();
     }
 }
