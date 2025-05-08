@@ -43,6 +43,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AVLNode.cs" />
+    <Compile Include="AVLTree.cs" />
     <Compile Include="BinaryTree.cs" />
     <Compile Include="BinarySearchTree.cs" />
     <Compile Include="clsAlgorithms.cs" />

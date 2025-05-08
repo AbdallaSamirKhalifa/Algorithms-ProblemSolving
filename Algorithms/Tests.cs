@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Runtime.Remoting.Metadata;
+using System.Security;
 using static clsAlgorithms;
 
 
@@ -7,14 +9,14 @@ public static class Tests
 {
     public static void LinearSearchTests()
     {
-        int [] arr= { 64, 34, 25, 12, 22, 11, 90 };
+        int[] arr = { 64, 34, 25, 12, 22, 11, 90 };
 
         int target = 22;
         Console.WriteLine("Original Array:");
         foreach (var item in arr)
             Console.Write(item + " ");
         Console.WriteLine();
-        
+
         int result = LinearSearch(arr, target);
 
         if (result is -1)
@@ -29,30 +31,30 @@ public static class Tests
         int[] arr = new int[100000];
         for (int i = 0; i < arr.Length; i++)
         {
-            arr[i] = i+1;
+            arr[i] = i + 1;
         }
 
 
-        int result = BinarySearch(arr, targetParam,out int trials);
+        int result = BinarySearch(arr, targetParam, out int trials);
 
         if (result is -1)
             Console.WriteLine($"Element not found in the array, and its been {trials} iterations to go through the elements.");
         else
             Console.WriteLine($"Element found at index: {result}, and its been {trials} iterations to find the element.");
 
-        
+
 
     }
 
 
     public static void BubbleSortTest()
     {
-        int[] arr = { 64, 34, 25, 12, 22, 11, 90 ,1};
+        int[] arr = { 64, 34, 25, 12, 22, 11, 90, 1 };
 
         Console.WriteLine("Original array:");
         foreach (int i in arr)
             Console.Write(i + " ");
-        
+
         Console.WriteLine();
 
         BubbleSort(arr);
@@ -72,7 +74,7 @@ public static class Tests
 
         Console.WriteLine();
 
-        SelectionSort(arr,asc);
+        SelectionSort(arr, asc);
 
         Console.WriteLine("\nSorted array:");
         foreach (int i in arr)
@@ -95,7 +97,7 @@ public static class Tests
         foreach (int i in arr)
             Console.Write(i + " ");
     }
-    
+
     public static void InsertionSortDescTest()
     {
         int[] arr = { 64, 34, 25, 12, 0, -1, 22, 11, 90, 1 };
@@ -140,11 +142,11 @@ public static class Tests
 
         Console.WriteLine("\nInorder Traversal: Left-Current-Right");
         binaryTree.InOrderTraversal();
-        
+
         Console.WriteLine("\nLevel Order Traversal: Left-Current-Right");
         binaryTree.LevelOrderTraversal();
     }
-    
+
     public static void BinarySearchTreeInsertionTests()
     {
         Console.WriteLine("\nInserting : 45, 15, 79, 90, 10, 55, 12, 20, 50\r\n");
@@ -189,12 +191,97 @@ public static class Tests
 
         Console.WriteLine($"Does the BTS contains 79? {bst.Contains(79)}");
         Console.WriteLine($"Does the BTS contains 100? {bst.Contains(100)}");
-        if(node != null)
+        if (node != null)
         {
-            Console.WriteLine("Node Found: "+node.Value);
+            Console.WriteLine("Node Found: " + node.Value);
         }
         else
             Console.WriteLine("Node not found");
+
+    }
+
+    public static void AVLTreeInsertionTests()
+    {
+        AVLTree<int> tree = new AVLTree<int>();
+
+        //RR
+        // int[] values = { 10, 20, 30 };
+
+        //LL
+        //  int[] values = { 30, 20, 10 };
+
+        //LR
+        // int[] values = { 30, 10, 20 };
+
+        //RL
+        //int[] values = { 10, 30, 20 };
+
+        // Inserting values
+        int[] values = { 10, 20, 30, 40, 50, 25 };
+        foreach (var value in values)
+        {
+            Console.WriteLine($"Inserting {value} into the AVL tree.");
+            tree.Insert(value);
+            tree.PrintTree();
+            Console.WriteLine("\n-------------------------------------------------\n");
+        }
+    }
+
+    public static void AVLTreeDeletionTests()
+    {
+
+        AVLTree<int> tree = new AVLTree<int>();
+
+
+        // Inserting values
+        int[] values = { 10, 20, 30, 40, 35, 32, 50, 25 };
+        foreach (var value in values)
+        {
+            tree.Insert(value);
+        }
+
+        tree.PrintTree();
+
+        tree.Delete(30);
+        Console.WriteLine("\nAfter Deletion.\n");
+
+        tree.PrintTree();
+
+    }
+
+    public static void AVLTreeSearchAndExistsTests()
+    {
+        AVLTree<int> tree = new AVLTree<int>();
+
+        // Inserting values
+        int[] values = { 10, 20, 30, 40, 50, 25 };
+        foreach (var value in values)
+        {
+            tree.Insert(value);
+        }
+
+        // Print the tree
+        tree.PrintTree();
+
+        // Searching for values
+        int searchValue = 30;
+        bool found = tree.Exists(searchValue);
+        Console.WriteLine($"\nSearch for value {searchValue}: " + (found ? "Found" : "Not Found"));
+
+        searchValue = 60;
+        found = tree.Exists(searchValue);
+        Console.WriteLine($"Search for value {searchValue}: " + (found ? "Found" : "Not Found"));
+
+
+
+        // Searching for values and printing the results
+        int searchValue2 = 30;
+        AVLNode<int> foundNode = tree.Search(searchValue2);
+        Console.WriteLine($"\nSearch for value {searchValue2}: " + (foundNode != null ? $"Found node with value: {foundNode.Value}" : "Not Found"));
+
+        searchValue2 = 60;
+        foundNode = tree.Search(searchValue);
+        Console.WriteLine($"Search for value {searchValue2}: " + (foundNode != null ? $"Found node with value: {foundNode.Value}" : "Not Found"));
 
     }
 }
