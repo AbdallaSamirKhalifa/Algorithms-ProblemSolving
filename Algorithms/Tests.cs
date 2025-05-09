@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Algorithms;
+using System;
 using System.Collections.Generic;
 using System.Runtime.Remoting.Metadata;
 using System.Security;
@@ -283,5 +284,35 @@ public static class Tests
         foundNode = tree.Search(searchValue);
         Console.WriteLine($"Search for value {searchValue2}: " + (foundNode != null ? $"Found node with value: {foundNode.Value}" : "Not Found"));
 
+    }
+
+    public static void AutoCompleteTests()
+    {
+        AVLTree<string> tree = new AVLTree<string>();
+        string[] words = { "Ahmad", "Mohammed", "Motasem", "Mohab", "Abla", "Abeer", "Abdullah", "Abbas", "Montaser", "Khalil", "Khalid" };
+
+        foreach (var word in words)
+        {
+            tree.Insert(word);
+        }
+
+        AVLAutoComplete aVLAutoComplete = new AVLAutoComplete(tree);
+
+        
+        do
+        {
+            Console.Clear();
+            tree.PrintTree();
+            Console.WriteLine("\nEnter a prefix to search:\n");
+            string prefix = Console.ReadLine();
+            var completions = aVLAutoComplete.AutoComplete(prefix);
+
+            Console.WriteLine($"\nSuggestions for '{prefix}':\n");
+            foreach (var completion in completions)
+            {
+                Console.WriteLine(completion);
+            }
+        }
+        while (Console.ReadKey().Key == ConsoleKey.Y);
     }
 }
