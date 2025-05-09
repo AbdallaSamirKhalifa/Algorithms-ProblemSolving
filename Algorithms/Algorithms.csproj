@@ -43,6 +43,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AutoComplete.cs" />
     <Compile Include="AVLNode.cs" />
     <Compile Include="AVLTree.cs" />
     <Compile Include="BinaryTree.cs" />

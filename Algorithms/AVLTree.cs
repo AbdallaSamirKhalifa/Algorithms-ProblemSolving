@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Net;
 using System.Security.Cryptography;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 
@@ -12,7 +14,7 @@ using System.Threading.Tasks;
 
 public class AVLTree<T> where T: IComparable<T>
 {
-    private AVLNode<T> Root;
+    public AVLNode<T> Root {  get;private set; }
 
 
    
@@ -258,5 +260,7 @@ public class AVLTree<T> where T: IComparable<T>
         }
 
     }
+
+
 }
 

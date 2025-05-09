@@ -24,7 +24,8 @@ internal class Program
         //BinarySearchTreeSerchTests();
         //AVLTreeInsertionTests();
         //AVLTreeDeletionTests();
-        AVLTreeSearchAndExistsTests();
+        //AVLTreeSearchAndExistsTests();
+        AutoCompleteTests();
         Console.ReadKey();
     }
 }
