@@ -25,7 +25,8 @@ internal class Program
         //AVLTreeInsertionTests();
         //AVLTreeDeletionTests();
         //AVLTreeSearchAndExistsTests();
-        AutoCompleteTests();
+        //AutoCompleteTests();
+        RedBlackTreeInsertion();
         Console.ReadKey();
     }
 }
