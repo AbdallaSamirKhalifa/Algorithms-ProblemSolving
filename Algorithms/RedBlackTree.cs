@@ -9,7 +9,7 @@ namespace Algorithms
 {
     public class RedBlackTree
     {
-        private class Node
+        public class Node
         {
             public int Value { get; set; }
             public Node Parent, Left, Right;
@@ -218,6 +218,23 @@ namespace Algorithms
                 PrintHelper(node.Left, indent, false);
                 PrintHelper(node.Right, indent, true);
             }
+
+        }
+
+        private Node FindNode(Node SearchInNode, int value)
+        {
+            if (SearchInNode == null || SearchInNode.Value == value)
+                return SearchInNode;
+
+            if(SearchInNode.Value >  value)
+                return FindNode(SearchInNode.Left, value);
+            else
+                return FindNode(SearchInNode.Right, value);
+        }
+
+        public Node Find(int value)
+        {
+            return FindNode(_Root, value);
         }
     }
 }

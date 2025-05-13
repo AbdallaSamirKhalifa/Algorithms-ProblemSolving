@@ -1,6 +1,7 @@
 ﻿using Algorithms;
 using System;
 using System.Collections.Generic;
+using System.Runtime.InteropServices;
 using System.Runtime.Remoting.Metadata;
 using System.Security;
 using static clsAlgorithms;
@@ -316,7 +317,7 @@ public static class Tests
         while (Console.ReadKey().Key == ConsoleKey.Y);
     }
 
-    public static void RedBlackTreeInsertion()
+    public static void RedBlackTreeInsertionTests()
     {
         RedBlackTree rbTree = new RedBlackTree();
 
@@ -330,5 +331,38 @@ public static class Tests
             rbTree.PrintTree();
             Console.WriteLine("\n--------------------------------\n");
         }
+    }
+
+    public static void ReddBlackTreeSearchTests()
+    {
+        RedBlackTree rbTree = new RedBlackTree();
+
+
+        // Test values to be inserted into the tree
+        int[] values = { 10, 20, 30, 15, 25, 35, 5, 19 };
+        foreach (var value in values)
+        {
+            rbTree.Insert(value);
+        }
+
+        rbTree.PrintTree();
+        Console.WriteLine("\n--------------------------------\n");
+
+        int searchValue = 10;
+        RedBlackTree.Node FoundNode = rbTree.Find(searchValue);
+        if (FoundNode != null)
+            Console.WriteLine($"Node wiht value {searchValue} found with color {(FoundNode.IsRed ? "Red" : "Black")}");
+        else Console.WriteLine($"Node with value {searchValue} is not found");
+        
+        Console.WriteLine("\n--------------------------------\n");
+        
+        searchValue = 200;
+        FoundNode = rbTree.Find(searchValue);
+        
+        if (FoundNode != null)
+            Console.WriteLine($"Node wiht value {searchValue} found with color {(FoundNode.IsRed ? "Red" : "Black")}");
+        else Console.WriteLine($"Node with value {searchValue} is not found");
+        
+
     }
 }
