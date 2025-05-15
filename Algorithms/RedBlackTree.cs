@@ -1,7 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.Eventing.Reader;
 using System.Linq;
+using System.Net.Http.Headers;
+using System.Net.Mail;
 using System.Net.NetworkInformation;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -235,6 +239,196 @@ namespace Algorithms
         public Node Find(int value)
         {
             return FindNode(_Root, value);
+        }
+
+        public bool Delete(int value)
+        {
+            Node NodeToDelete = FindNode(_Root, value);
+            if(NodeToDelete is null)
+                return false;
+            DeleteNode(NodeToDelete);
+            return true;
+        }
+
+        private void DeleteNode(Node nodeToDelete)
+        {
+            //Node that might require fixing the Red-Black properties
+            Node nodeToFix = null;
+            Node parent = null; 
+            Node child = null;//child of the node to delete or its successor
+
+            bool originalColor = nodeToDelete.IsRed;//store the original color of the node to delete.
+
+            //case 1: the node to delete has no left child
+            if(nodeToDelete.Left is null)
+            {
+                //the child is the right child of the node
+                child = nodeToDelete.Right;
+                //replace nodeToDelete with its right child.
+                Transplant(nodeToDelete, child);
+            }
+            //case 2: The node to delete has node right child
+            else if(nodeToDelete.Right is null)
+            {
+                child = nodeToDelete.Left;
+                //replace the node wiht its left child
+                Transplant(nodeToDelete, child);
+            }
+            //case 3: the node to delete has both left and righ child
+            else
+            {
+                //find the inorder successor (smallest node in the right subtree)
+                Node successor = Minimum(nodeToDelete.Right);
+                //store the original color of the successor
+                originalColor = successor.IsRed;
+                //the child is the right child of the succssor
+                child = successor.Right;
+
+                //if the successor is the immediate child of the node to delete
+                if(successor.Parent == nodeToDelete)
+                {
+                    if (child != null)
+                        child.Parent = successor;//update the parent of the child
+                }
+                else
+                {
+                    //replace the successor with its right child in its original position
+                    Transplant(successor, successor.Right);
+                    successor.Right = nodeToDelete.Right;//connect the right child of the node to delete to the successor
+                    successor.Right.Parent = successor;// update the parent of the right child 
+                }
+
+                //replace the node to delete with the successor 
+                Transplant(nodeToDelete, successor);
+                successor.Left = nodeToDelete.Left;//connect the left child of the node to delete to the successor
+                successor.Left.Parent = successor;
+                successor.IsRed = nodeToDelete.IsRed;//mainatain the original color of the node being deleted
+            }
+
+            //if the original color of the node was black, fix the red black properties
+            if (!originalColor && child != null)
+                FixDelete(child);
+        }
+
+
+        //replaces one subtree as a child of its parent with another 
+        private void Transplant(Node target, Node with)
+        {
+            //if the target node is the root of the tree (it has no parent)
+            //then the new subtree (with) becomes the new root of the tree
+            if (target.Parent == null)
+                _Root = with;
+            //if the target node is the left child of its parent
+            //then update the parent's left child to be the new subtree (with)
+            else if (target.Parent.Left == target)
+                target.Parent.Left = with;
+            //if the target node is the right child of its parent
+            //then update the parent's right child to be the new subtree (with)
+            else
+                target.Parent.Right = with;
+
+            if(with!=null)
+                with.Parent = target.Parent;
+
+        }
+        private void FixDelete(Node node)
+        {
+            Node sibling = null;
+            //loop until node is the root or untill the node is red
+            while(node != _Root && !node.IsRed)
+            {
+                //if the node is the left child of its parent
+                if(node == node.Parent.Left)
+                {
+                    sibling = node.Parent.Right;
+                    //case 1: the sibling is red, perform a rotation and recolor
+                    if (sibling.IsRed)
+                    {
+                        sibling.IsRed = false;//recolor the sibling to black
+                        node.Parent.IsRed = true;//recolor parent to red
+                        LeftRotate(node.Parent);//rotate the parent to the left
+                        sibling = node.Parent.Right;//update the sibling after rotation
+                    }
+
+                    //case 2.1: if both sibling's children are blac
+                    if(!sibling.Left.IsRed && !sibling.Right.IsRed)
+                    {
+                        sibling.IsRed = true;//recolor sibling to red
+                        node = node.Parent;//move up the tree to continue fixing
+                    }
+                    else
+                    {
+                        //case 2.2.2: if sibling's right child is black and left child is red
+                        //(near child is red)
+                        if (!sibling.Right.IsRed)
+                        {
+                            sibling.Left.IsRed = false;//recolor sibling's left child to black
+                            sibling.IsRed = true; //recolor sibling to red
+                            RightRotate(sibling);//rotate sibling to the right
+                            sibling= node.Parent.Right;//update sibling after rotation
+                        }
+
+                        //case 2.2.1: sibling's right child is red (far child)
+                        sibling.IsRed = node.Parent.IsRed;//recolor sibling with parent's color
+                        node.Parent.IsRed = false;//recolor parent to black
+                        sibling.Right.IsRed = false;//recolor sibling's right child to black
+                        LeftRotate(node.Parent);//rotate parent to the left
+                        node = _Root;//set node to root to break out of the loop
+
+                    }
+
+                }
+                //if the node is the right child
+                else
+                {
+                    sibling = node.Parent.Left;
+                    //case 1: the sibling is red, perform a rotation and recolor
+                    if (sibling.IsRed)
+                    {
+                        sibling.IsRed = false;//recolor the sibling to black
+                        node.Parent.IsRed = true;//recolor parent to red
+                        RightRotate(node.Parent);//rotate the parent to the right
+                        sibling = node.Parent.Left;//update the sibling after rotation
+                    }
+
+                    //case 2.1: if both sibling's children are black
+                    if (!sibling.Left.IsRed && !sibling.Right.IsRed)
+                    {
+                        sibling.IsRed = true;//recolor sibling to red
+                        node = node.Parent;//move up the tree to continue fixing
+                    }
+                    else
+                    {
+                        //case 2.2.2: if sibling's left child is black and right child is red
+                        //(near child is red)
+                        if (!sibling.Left.IsRed)
+                        {
+                            sibling.Right.IsRed = false;//recolor sibling's right child to black
+                            sibling.IsRed = true; //recolor sibling to red
+                            LeftRotate(sibling);//rotate sibling to the left
+                            sibling = node.Parent.Left;//update sibling after rotation
+                        }
+
+                        //case 2.2.1: sibling's left child is red (far child)
+                        sibling.IsRed = node.Parent.IsRed;//recolor sibling with parent's color
+                        node.Parent.IsRed = false;//recolor parent to black
+                        sibling.Left.IsRed = false;//recolor sibling's right child to black
+                        RightRotate(node.Parent);//rotate parent to the right
+                        node = _Root;//set node to root to break out of the loop
+
+                    }
+
+                }
+            }
+            node.IsRed = false;//ensure the root is black before exiting
+        }
+        private Node Minimum(Node node)
+        {
+
+            while (node.Left != null)
+                node = node.Left;
+            
+            return node;
         }
     }
 }

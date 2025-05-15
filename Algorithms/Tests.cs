@@ -365,4 +365,39 @@ public static class Tests
         
 
     }
+
+    public static void RedBlackTreeDeletionTests()
+    {
+        RedBlackTree rbTree = new RedBlackTree();
+
+
+        // Test values to be inserted into the tree
+        int[] values = { 10, 20, 30, 15, 25, 35, 5, 19 };
+        foreach (var value in values)
+        {
+            rbTree.Insert(value);
+        }
+
+        rbTree.PrintTree();
+        Console.WriteLine("\n--------------------------------\n");
+
+        if (rbTree.Delete(250))
+        {
+            Console.WriteLine("After deleting 250:");
+            rbTree.PrintTree();
+        }
+        else
+            Console.WriteLine("No node deleted couldn't find 250");
+
+
+        Console.WriteLine("\n--------------------------------\n");
+
+        if (rbTree.Delete(10))
+        {
+            Console.WriteLine("After deleting 10:");
+            rbTree.PrintTree();
+        }
+        else
+            Console.WriteLine("No node deleted couldn't find 10");
+    }
 }
