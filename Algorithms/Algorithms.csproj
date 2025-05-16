@@ -49,6 +49,7 @@
     <Compile Include="BinaryTree.cs" />
     <Compile Include="BinarySearchTree.cs" />
     <Compile Include="clsAlgorithms.cs" />
+    <Compile Include="Graph.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RedBlackTree.cs" />

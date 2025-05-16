@@ -400,4 +400,26 @@ public static class Tests
         else
             Console.WriteLine("No node deleted couldn't find 10");
     }
+
+    public static void BFSTest()
+    {
+        List<string> vertices = new List<string> { "0", "1", "2", "3", "4" };
+
+        Graph graph = new Graph(vertices, Graph.enGraphDirection.UnDirected);
+
+        graph.AddEdge("0", "1", 1);
+        graph.AddEdge("0", "2", 1);
+
+        graph.AddEdge("1", "2", 1);
+        graph.AddEdge("1", "3", 1);
+
+        graph.AddEdge("2", "3", 1);
+        graph.AddEdge("2", "4", 1);
+
+
+
+        graph.DisplayGraph("Adjacency Matrix (Undirected Graph):");
+
+        graph.BFS("0");
+    }
 }

@@ -28,8 +28,8 @@ internal class Program
         //AutoCompleteTests();
         //RedBlackTreeInsertionTests();
         //ReddBlackTreeSearchTests();
-        RedBlackTreeDeletionTests();
+        //RedBlackTreeDeletionTests();
+        BFSTest();
         Console.ReadKey();
     }
 }
-
