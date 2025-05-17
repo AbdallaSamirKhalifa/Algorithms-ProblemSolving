@@ -29,7 +29,8 @@ internal class Program
         //RedBlackTreeInsertionTests();
         //ReddBlackTreeSearchTests();
         //RedBlackTreeDeletionTests();
-        BFSTest();
+        //BFSTest();
+        DFSTest();
         Console.ReadKey();
     }
 }

@@ -1,5 +1,6 @@
 ﻿using Microsoft.CSharp;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 
 class Graph 
@@ -66,6 +67,45 @@ class Graph
         }
     }
 
+    public void DFS(string startVertex)
+    {
+        if (!_vertexDictionary.ContainsKey(startVertex))
+        {
+            Console.WriteLine($"Invalid start vertex.");
+            return;
+        }
+
+        bool [] visited = new bool [ _numberOfVertices ];
+
+        Stack<int> stack = new Stack<int>();
+
+        int startIndex = _vertexDictionary[startVertex];
+        stack.Push(startIndex);
+
+        Console.WriteLine("\nDepth first search");
+        while (stack.Count > 0)
+        {
+            int currentVertex = stack.Pop();
+
+            //skip already visited vertices
+            if (visited[currentVertex])
+                continue;
+            
+            visited[currentVertex] = true;
+            Console.Write($"{GetVertixName(currentVertex)} ");
+            
+            //add all unvisited nodes to the stack
+            for (int i = _numberOfVertices-1; i >= 0; i--)
+            {
+                if (_adjacencyMatrix[currentVertex, i] > 0 && !visited[i])
+                {
+                    stack.Push(i);
+                }
+            }
+
+
+        }
+    }
     public void BFS(string startVertex)
     {
         if(!_vertexDictionary.ContainsKey(startVertex))

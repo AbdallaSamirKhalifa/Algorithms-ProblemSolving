@@ -422,4 +422,25 @@ public static class Tests
 
         graph.BFS("0");
     }
+    
+    public static void DFSTest()
+    {
+        List<string> vertices = new List<string> { "0", "1", "2", "3", "4" };
+
+        Graph graph = new Graph(vertices, Graph.enGraphDirection.UnDirected);
+
+        graph.AddEdge("0", "1", 1);
+        graph.AddEdge("0", "2", 1);
+        graph.AddEdge("0", "3", 1);
+
+        graph.AddEdge("2", "3", 1);
+        graph.AddEdge("2", "4", 1);
+
+
+
+
+        graph.DisplayGraph("Adjacency Matrix (Undirected Graph):");
+
+        graph.DFS("0");
+    }
 }
