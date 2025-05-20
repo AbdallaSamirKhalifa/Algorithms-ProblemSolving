@@ -1,6 +1,7 @@
 ﻿using Algorithms;
 using System;
 using System.Collections.Generic;
+using System.IO.Pipes;
 using System.Runtime.InteropServices;
 using System.Runtime.Remoting.Metadata;
 using System.Security;
@@ -442,5 +443,59 @@ public static class Tests
         graph.DisplayGraph("Adjacency Matrix (Undirected Graph):");
 
         graph.DFS("0");
+    }
+
+    public static void DijkstraTest()
+    {
+        List<string> vertices = new List<string> { "A", "B", "C", "D", "E" };
+
+        Graph graph = new Graph(vertices, Graph.enGraphDirection.Directed);
+
+        graph.AddEdge("A", "B", 4);
+        graph.AddEdge("A", "C", 1);
+        graph.AddEdge("C", "B", 2);
+        graph.AddEdge("C", "D", 4);
+        graph.AddEdge("B", "E", 4);
+        graph.AddEdge("D", "E", 1);
+
+        graph.DisplayGraph("Adjacency Matrix");
+        graph.Dijkstra("A");
+    }
+    public static void DijkstraUsinMinHeapTest()
+    {
+        List<string> vertices = new List<string> { "A", "B", "C", "D", "E" };
+
+        // Create a directed graph for the transport network
+        Graph graph = new Graph(vertices, Graph.enGraphDirection.UnDirected);
+
+        // Add connections (edges) with travel times (weights)
+        graph.AddEdge("A", "B", 10);
+        graph.AddEdge("A", "C", 15);
+        graph.AddEdge("B", "D", 12);
+        graph.AddEdge("C", "D", 10);
+        graph.AddEdge("B", "E", 15);
+        graph.AddEdge("D", "E", 2);
+
+        graph.DisplayGraph("Adjacency Matrix");
+        graph.DijkstraMinHeap("A");
+    }
+    public static void ShortestTimeToTravelTest()
+    {
+        List<string> stations = new List<string> { "A", "B", "C", "D", "E" };
+
+        // Create a directed graph for the transport network
+        Graph transportGraph = new Graph(stations, Graph.enGraphDirection.UnDirected);
+
+        // Add connections (edges) with travel times (weights)
+        transportGraph.AddEdge("A", "B", 10);
+        transportGraph.AddEdge("A", "C", 15);
+        transportGraph.AddEdge("B", "D", 12);
+        transportGraph.AddEdge("C", "D", 10);
+        transportGraph.AddEdge("B", "E", 15);
+        transportGraph.AddEdge("D", "E", 2);
+
+        transportGraph.DisplayGraph("Transport Network Adjacency Matrix:");
+        Console.WriteLine("\nFinding the shortest path from A to E:");
+        transportGraph.Dijkstra("A","E");
     }
 }

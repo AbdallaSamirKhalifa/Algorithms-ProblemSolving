@@ -30,7 +30,10 @@ internal class Program
         //ReddBlackTreeSearchTests();
         //RedBlackTreeDeletionTests();
         //BFSTest();
-        DFSTest();
+        //DFSTest();
+        //DijkstraTest();
+        DijkstraUsinMinHeapTest();
+        //ShortestTimeToTravelTest();
         Console.ReadKey();
     }
 }
