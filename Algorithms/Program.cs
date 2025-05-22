@@ -32,8 +32,9 @@ internal class Program
         //BFSTest();
         //DFSTest();
         //DijkstraTest();
-        DijkstraUsinMinHeapTest();
+        //DijkstraUsinMinHeapTest();
         //ShortestTimeToTravelTest();
+        CoinChangeProblem(new SortedSet<int> {1,5,10,20,50 }, 156);
         Console.ReadKey();
     }
 }

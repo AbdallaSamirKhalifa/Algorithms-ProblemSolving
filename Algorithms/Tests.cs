@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO.Pipes;
+using System.Linq;
 using System.Runtime.InteropServices;
 using System.Runtime.Remoting.Metadata;
 using System.Security;
@@ -497,5 +498,40 @@ public static class Tests
         transportGraph.DisplayGraph("Transport Network Adjacency Matrix:");
         Console.WriteLine("\nFinding the shortest path from A to E:");
         transportGraph.Dijkstra("A","E");
+    }
+
+    public static void CoinChangeProblem(SortedSet<int> coins, int amount)
+    {
+        /*we used sorted set to store the coins in ascending order where there is no duplicates
+         * we used the dictionary to store the coin, and the number of each one one of them
+         * this helps improving the time complexity and simpler way for solving the problem
+         */
+        coins.RemoveWhere(x => x > amount);
+        Dictionary<int, int> amoutnOfCoins=new Dictionary<int, int>();
+
+        foreach (var item in coins)
+        {
+            amoutnOfCoins.Add(item, 0);
+        }
+        while (amount > 0)
+        {
+            if (amount >= coins.Max)
+            {
+                amoutnOfCoins[coins.Max] += 1;
+                amount -= coins.Max;
+            }
+            if (amount >= coins.Max)
+                continue;
+
+            coins.Remove(coins.Max);
+        }
+        
+        
+        foreach (var item in amoutnOfCoins.Where(x=>x.Value>0))
+        {
+            
+            Console.WriteLine($"{item.Key:C} x {item.Value}");
+        }
+
     }
 }
