@@ -34,7 +34,8 @@ internal class Program
         //DijkstraTest();
         //DijkstraUsinMinHeapTest();
         //ShortestTimeToTravelTest();
-        CoinChangeProblem(new SortedSet<int> {1,5,10,20,50 }, 156);
+        //CoinChangeProblem(new SortedSet<int> {1,5,10,20,50 }, 156);
+        ActivitySelection();
         Console.ReadKey();
     }
 }

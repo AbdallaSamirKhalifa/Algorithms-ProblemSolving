@@ -1,6 +1,7 @@
 ﻿using Algorithms;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.IO.Pipes;
 using System.Linq;
 using System.Runtime.InteropServices;
@@ -533,5 +534,37 @@ public static class Tests
             Console.WriteLine($"{item.Key:C} x {item.Value}");
         }
 
+    }
+
+    public static void ActivitySelection()
+    {
+        List<(int start, int end)> activities = new List<(int start, int end)>
+        {
+                 (1, 4),
+                (3, 5),
+                (0, 6),
+                (5, 7),
+                (8, 9),
+                (5, 9)
+        };
+
+
+         activities.Sort((a,b)=> a.end.CompareTo(b.end));
+
+        List<(int start, int end)> result = new List<(int start, int end)>();
+            //activity2.Add(activity[0]);
+            
+        foreach (var item1 in activities)
+        {
+
+            if (result.Last().end <= item1.start && !result.Contains(item1))
+                result.Add(item1);
+        }
+
+        Console.WriteLine($"Max Number of the selectd activities that could be done by a single person is: {result.Count}\n");
+        foreach (var item in result)
+        {
+            Console.WriteLine(item);
+        }
     }
 }
